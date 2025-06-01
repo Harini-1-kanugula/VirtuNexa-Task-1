@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photo Tagging Tool</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body class="bg-gradient-to-r from-blue-100 to-purple-200 min-h-screen flex flex-col items-center p-4">
+  <div id="app" class="w-full max-w-4xl">
+    <h1 class="text-4xl font-bold text-center mb-6 text-purple-700">📸 Photo Tagging & Organizer Tool</h1>
+
+    <!-- Upload Section -->
+    <div class="bg-white p-6 rounded-2xl shadow-xl mb-6">
+      <label class="block mb-2 text-lg font-semibold text-gray-700">Upload Photo</label>
+      <input type="file" accept="image/*" @change="handleUpload" class="mb-4" />
+      <input type="text" v-model="newTag" placeholder="Add tag (e.g., beach, sunset)"
+        class="p-2 border rounded-lg w-full mb-4 focus:outline-none focus:ring-2 focus:ring-purple-400" />
+      <button @click="addTag" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition">Add Tag</button>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="bg-white p-6 rounded-2xl shadow-xl mb-6">
+      <label class="block mb-2 text-lg font-semibold text-gray-700">Filter by Tag</label>
+      <input type="text" v-model="filterTag" placeholder="Search tags"
+        class="p-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400" />
+    </div>
+
+    <!-- Photo Gallery -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div v-for="(photo, index) in filteredPhotos" :key="index" class="bg-white p-4 rounded-xl shadow-lg">
+        <img :src="photo.url" class="rounded-lg mb-2 w-full h-48 object-cover" alt="Uploaded image" />
+        <div class="text-sm text-gray-600">Tags: <span v-for="tag in photo.tags" :key="tag"
+            class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full mr-1">{{ tag }}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"> </script>
+</body>
+
+</html>
